@@ -13,11 +13,11 @@ export default function App() {
   const dispatch = useDispatch();
 
   return (
-    <div className='flex'>
-    
-      <div className='w-2/3 p-6'>
-        <h2 className='text-4xl font-bold mb-6'>Desserts</h2>
-        <div className='grid grid-cols-3 gap-6'>
+    <div className='flex flex-col lg:flex-row gap-6 p-4 sm:p-6'>
+      {/* Список товаров */}
+      <div className='w-full lg:w-2/3'>
+        <h2 className='text-2xl sm:text-4xl font-bold mb-6'>Desserts</h2>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6'>
           {data &&
             data.data.map((item) => {
               const quantity = cart[item.id] || 0;
@@ -36,7 +36,7 @@ export default function App() {
                     {quantity === 0 ? (
                       <button
                         onClick={() => dispatch(addToCart(item.id))}
-                        className='absolute bottom-[-12px] left-1/2 -translate-x-1/2 text-sm text-black bg-white cursor-pointer px-3 py-1.5 rounded-full shadow-md flex items-center justify-center gap-1.5'
+                        className='absolute bottom-[-12px] left-1/2 -translate-x-1/2 text-xs sm:text-sm text-black bg-white cursor-pointer px-3 py-1.5 rounded-full shadow-md flex items-center justify-center gap-1.5'
                       >
                         <img
                           src='/images/korzina.svg'
@@ -66,20 +66,24 @@ export default function App() {
                     )}
                   </div>
 
-                  <p className='text-md text-[#87635A] mt-6'>{item.category}</p>
-                  <h3 className='text-xl font-bold text-[#260F08]'>
+                  <p className='text-sm sm:text-md text-[#87635A] mt-6'>
+                    {item.category}
+                  </p>
+                  <h3 className='text-lg sm:text-xl font-bold text-[#260F08]'>
                     {item.name}
                   </h3>
-                  <p className='text-[#C73B0F] text-2xl'>${item.price}</p>
+                  <p className='text-[#C73B0F] text-xl sm:text-2xl'>
+                    ${item.price}
+                  </p>
                 </div>
               );
             })}
         </div>
       </div>
 
-      
-      <div className='w-1/3 p-6 bg-[#fff8f5] rounded-lg shadow-md'>
-        <h3 className='text-xl font-bold text-[#C73B0F] mb-4'>
+      {/* Корзина */}
+      <div className='w-full lg:w-1/3 bg-[#fff8f5] rounded-lg shadow-md p-4 sm:p-6'>
+        <h3 className='text-lg sm:text-xl font-bold text-[#C73B0F] mb-4'>
           Your Cart ({Object.values(cart).reduce((a, b) => a + b, 0)})
         </h3>
 
@@ -100,7 +104,7 @@ export default function App() {
                         <p className='font-semibold text-[#260F08]'>
                           {item.name}
                         </p>
-                        <div className='flex items-center gap-1 text-sm'>
+                        <div className='flex items-center gap-1 text-xs sm:text-sm'>
                           <span className='text-[#C73B0F] font-bold'>
                             {cart[item.id]}x
                           </span>
@@ -124,7 +128,7 @@ export default function App() {
 
             <div className='flex justify-between items-center mt-4'>
               <span className='text-gray-700 font-medium'>Order Total</span>
-              <span className='text-2xl font-bold text-[#260F08]'>
+              <span className='text-xl sm:text-2xl font-bold text-[#260F08]'>
                 $
                 {data &&
                   data.data
@@ -136,7 +140,7 @@ export default function App() {
 
             <div className='mt-4 bg-white rounded-lg p-3 flex items-center gap-2 border border-gray-100'>
               <img src='/images/derevo.svg' alt='' className='w-5 h-5' />
-              <p className='text-sm text-gray-600'>
+              <p className='text-xs sm:text-sm text-gray-600'>
                 This is a <span className='font-semibold'>carbon-neutral</span>{" "}
                 delivery
               </p>
@@ -144,7 +148,7 @@ export default function App() {
 
             <button
               onClick={() => dispatch(openOrderModal())}
-              className='mt-4 w-full bg-[#C73B0F] hover:bg-[#a4300d] text-white font-semibold py-3 rounded-full transition'
+              className='mt-4 w-full bg-[#C73B0F] hover:bg-[#a4300d] text-white font-semibold py-2 sm:py-3 rounded-full transition text-sm sm:text-base'
             >
               Confirm Order
             </button>
