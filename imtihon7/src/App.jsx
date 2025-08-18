@@ -32,7 +32,7 @@ export default function App() {
   }
 
   return (
-    <div className='flex flex-col lg:flex-row gap-6 p-4 sm:p-6'>
+    <div className='flex flex-col lg:flex-row gap-6 p-4 sm:p-6 bg-[#fff8f5]'>
       <div className='w-full lg:w-2/3'>
         <h2 className='text-2xl sm:text-4xl font-bold mb-6'>Desserts</h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6'>
@@ -40,21 +40,18 @@ export default function App() {
             data.data.map((item) => {
               const quantity = cart[item.id] || 0;
               return (
-                <div
-                  key={item.id}
-                  className='bg-white rounded-2xl shadow p-4 flex flex-col'
-                >
+                <div key={item.id} className='rounded-2xl   p-4 flex flex-col'>
                   <div className='relative w-full'>
                     <img
                       src={item.image.desktop}
                       alt={item.name}
-                      className='rounded-lg w-full h-auto'
+                      className='rounded-lg w-full h-auto border-[2px] border-white hover:border-[#C73B0F]'
                     />
 
                     {quantity === 0 ? (
                       <button
                         onClick={() => dispatch(addToCart(item.id))}
-                        className='absolute bottom-[-12px] left-1/2 -translate-x-1/2 text-xs sm:text-sm text-black bg-white cursor-pointer px-3 py-1.5 rounded-full shadow-md flex items-center justify-center gap-1.5'
+                        className='absolute bottom-[-12px] left-1/2 -translate-x-1/2 text-xs sm:text-sm text-black bg-white cursor-pointer px-4 py-3 rounded-full  flex items-center justify-center gap-1.5 border border-[#AD8A85]'
                       >
                         <img
                           src='/images/korzina.svg'
@@ -64,7 +61,7 @@ export default function App() {
                         Add to Cart
                       </button>
                     ) : (
-                      <div className='absolute bottom-[-12px] left-1/2 -translate-x-1/2 flex items-center bg-white px-3 py-1.5 rounded-full shadow-md gap-4'>
+                      <div className='absolute text-white bottom-[-12px] left-1/2 -translate-x-1/2 flex items-center bg-[#C73B0F] px-3 py-1.5 rounded-full shadow-md gap-4'>
                         <button
                           onClick={() => dispatch(removeFromCart(item.id))}
                           className='w-7 h-7 flex items-center justify-center border border-gray-300 rounded-full text-lg font-bold'
@@ -100,16 +97,21 @@ export default function App() {
       </div>
 
       {/* Корзина */}
-      <div className='w-full lg:w-1/3 bg-[#fff8f5] rounded-lg shadow-md p-4 sm:p-6'>
-        <h3 className='text-lg sm:text-xl font-bold text-[#C73B0F] mb-4'>
+      <div className='w-full lg:w-1/3 flex flex-col  p-4 sm:p-6 bg-white'>
+        <h3 className='text-lg sm:text-4xl font-bold text-[#C73B0F] mb-4'>
           Your Cart ({Object.values(cart).reduce((a, b) => a + b, 0)})
         </h3>
+        <div className='flex justify-center'>
+          <img src='/images/cake.svg' alt='cake' className='max-w-[128px]' />
+        </div>
 
         {Object.keys(cart).length === 0 ? (
-          <p className='text-gray-500'>No items added yet</p>
+          <p className='text-[#87635A] text-center'>
+            Your added items will appear here
+          </p>
         ) : (
           <>
-            <ul className='space-y-4'>
+            <ul className='space-y-4 '>
               {data &&
                 data.data
                   .filter((item) => cart[item.id])
@@ -126,10 +128,10 @@ export default function App() {
                           <span className='text-[#C73B0F] font-bold'>
                             {cart[item.id]}x
                           </span>
-                          <span className='text-gray-500'>
+                          <span className='text-[#87635A]'>
                             @ ${item.price.toFixed(2)}
                           </span>
-                          <span className='text-[#260F08] font-semibold'>
+                          <span className='text-[#87635A] font-semibold'>
                             ${(item.price * cart[item.id]).toFixed(2)}
                           </span>
                         </div>
@@ -145,7 +147,7 @@ export default function App() {
             </ul>
 
             <div className='flex justify-between items-center mt-4'>
-              <span className='text-gray-700 font-medium'>Order Total</span>
+              <span className='text-[#260F08] font-medium'>Order Total</span>
               <span className='text-xl sm:text-2xl font-bold text-[#260F08]'>
                 $
                 {data &&
