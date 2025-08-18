@@ -6,15 +6,33 @@ import { openOrderModal } from "./store/uiSlice";
 import OrderModal from "./components/OrderModal";
 
 export default function App() {
-  const { data } = useFetch(
+  const { data, loading, error } = useFetch(
     "https://json-api.uz/api/project/dessertss/desserts"
   );
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  if (loading) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C73B0F]'></div>
+        <p className='ml-3 text-lg font-semibold text-gray-600'>
+          Loading desserts...
+        </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <p className='text-red-500 font-semibold'>Ошибка: {error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className='flex flex-col lg:flex-row gap-6 p-4 sm:p-6'>
-      {/* Список товаров */}
       <div className='w-full lg:w-2/3'>
         <h2 className='text-2xl sm:text-4xl font-bold mb-6'>Desserts</h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6'>
